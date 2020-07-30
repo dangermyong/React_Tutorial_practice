@@ -15,6 +15,28 @@ class CustomerAdd extends React.Component {
     }
   }
 
+  handleFormSubmit = (e) => {
+    e.preventDefault()
+    this.addCustomer()
+      .then((response) => {
+        console.log(response.data);
+      })
+  }
+
+  handleFileChange = (e) => {
+    this.setState({
+      file: e.target.files[0],
+      fileName: e.target.value
+    })
+  }
+
+  handleValueChange = (e) => {
+    let nextState = {};
+    nextState[e.target.name] =e.target.value;
+    this.setState(nextState);
+  }
+
+
   addCustomer = () => {
     const url = 'api/customers';
     const formData = new FormData();
@@ -31,13 +53,7 @@ class CustomerAdd extends React.Component {
     return post(url, formData, config);
   }
 
-  handleFormSubmit = (e) => {
-    e.preventDefault()
-    this.addCustomer()
-      .then((response) => {
-        console.log(response.data);
-      })
-  }
+
 
   render() {
     return (
